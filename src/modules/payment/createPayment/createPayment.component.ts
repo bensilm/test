@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {positiveNumberValidator} from '../../../common/validators/positiveNumber.validator';
-import {IPayment} from '../model/IPayment';
 import {PaymentService} from '../payment.service';
 
 @Component({
@@ -11,24 +10,24 @@ import {PaymentService} from '../payment.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreatePaymentComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private paymentService: PaymentService) {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.createForm();
   }
 
-  createForm() {
+  public createForm() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       price: ['', [positiveNumberValidator, Validators.required]],
     });
   }
 
-  submit() {
+  public submit() {
     this.paymentService.next(this.form.value);
 
     this.form.reset();

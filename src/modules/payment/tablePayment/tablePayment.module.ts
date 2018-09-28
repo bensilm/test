@@ -3,17 +3,17 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import {TablePaymentComponent} from './tablePayment.component';
 import {CommonModule} from '@angular/common';
-import {TableRowModule} from './tableRow/tableRow.module';
-import {TableHeaderModule} from './tableHeader/tableHeader.module';
+import {TableRowComponent} from './tableRow/tableRow.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    TableHeaderModule,
-    TableRowModule
+    ReactiveFormsModule
   ],
-  declarations: [TablePaymentComponent],
+  declarations: [
+    TablePaymentComponent,
+    TableRowComponent
+  ],
   exports: [TablePaymentComponent]
 })
 export class TablePaymentModule {

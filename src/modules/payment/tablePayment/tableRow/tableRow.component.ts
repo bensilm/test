@@ -10,34 +10,34 @@ import {Subject} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableRowComponent implements OnInit, OnDestroy {
-  @Input() payment: IPayment;
+  @Input() public payment: IPayment;
 
-  @Output() onClickCheckbox = new EventEmitter<boolean>();
-  @Output() onDelete = new EventEmitter<number>();
+  @Output() public onClickCheckbox: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public onDelete: EventEmitter<number> = new EventEmitter<number>();
 
-  checkboxs: FormArray;
+  public checkboxes: FormArray;
 
-  private destroy$ = new Subject<void>();
+  private destroy$: Subject<void> = new Subject<void>();
 
-  ngOnInit() {
+  public ngOnInit() {
     this.createForm();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  createForm() {
-    this.checkboxs = new FormArray(Array.from(Array(12)).map(() => new FormControl(false)));
+  public createForm() {
+    this.checkboxes = new FormArray(Array.from(Array(12)).map(() => new FormControl(false)));
   }
 
-  clickCheckbox(preventValue: boolean) {
+  public clickCheckbox(preventValue: boolean) {
     this.onClickCheckbox.emit(!preventValue);
   }
 
-  deleteRow() {
-    const numberSelected = this.checkboxs.value.filter(selected => selected).length;
+  public deleteRow() {
+    const numberSelected = this.checkboxes.value.filter(selected => selected).length;
 
     this.onDelete.emit(numberSelected);
   }

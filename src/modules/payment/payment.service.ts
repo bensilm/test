@@ -4,13 +4,13 @@ import {IPayment} from './model/IPayment';
 
 @Injectable()
 export class PaymentService {
-  private addPayment$ = new Subject<IPayment>();
+  private addPayment$: Subject<IPayment> = new Subject<IPayment>();
 
-  onAddPayment(): Observable<IPayment> {
+  public onAddPayment(): Observable<IPayment> {
     return this.addPayment$.asObservable();
   }
 
-  next(payment: IPayment) {
+  public next(payment: IPayment) {
     this.addPayment$.next(payment);
   }
 }

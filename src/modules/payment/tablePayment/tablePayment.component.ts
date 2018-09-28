@@ -13,29 +13,29 @@ const COLUMN_NAMES = ['Наименование платежа', 'Стоимос
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TablePaymentComponent implements OnInit, OnDestroy {
-  @Output() changeFundsSpent = new EventEmitter<number>();
+  @Output() public changeFundsSpent: EventEmitter<number> = new EventEmitter<number>();
 
-  readonly columnNames = COLUMN_NAMES;
+  readonly columnNames: string[] = COLUMN_NAMES;
 
-  payments: IPayment[] = [];
+  public payments: IPayment[] = [];
 
-  private fundsSpent = 0;
-  private destroy$ = new Subject<void>();
+  private fundsSpent: number = 0;
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private paymentService: PaymentService,
               private changeDetectorRef: ChangeDetectorRef) {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.handleAddPayment();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  handleAddPayment() {
+  public handleAddPayment() {
     this.paymentService.onAddPayment()
       .subscribe(payment => {
         this.payments.push(payment);
@@ -43,13 +43,13 @@ export class TablePaymentComponent implements OnInit, OnDestroy {
       });
   }
 
-  clickToCheckbox(selected: boolean, price: number) {
+  public clickToCheckbox(selected: boolean, price: number) {
     this.fundsSpent += selected ? price : -price;
 
     this.changeFundsSpent.emit(this.fundsSpent);
   }
 
-  deletePayment(numberSelected: number, payment: IPayment) {
+  public deletePayment(numberSelected: number, payment: IPayment) {
     const index = this.payments.indexOf(payment);
 
     if (index !== -1) {

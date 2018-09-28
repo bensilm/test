@@ -1,31 +1,28 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, Optional, Self} from '@angular/core';
+import {Component, Inject, OnInit, Optional, Self} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 
-export const REQUIRED_FIELD_NAME = 'required';
-export const REQUIRED_ERROR_TEXT = 'Необходимо заполнить поле';
-export const DEFAULT_ERROR_TEXT = 'Поле заполнено неверно';
+const REQUIRED_FIELD_NAME: string = 'required';
+const REQUIRED_ERROR_TEXT: string = 'Необходимо заполнить поле';
+const DEFAULT_ERROR_TEXT: string = 'Поле заполнено неверно';
 
 @Component({
   selector: 'field-error',
-  // https://github.com/angular/angular/issues/10887
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './fieldError.template.html',
-  styleUrls: ['./fieldError.style.less'],
+  styleUrls: ['./fieldError.style.less']
 })
 export class FieldErrorComponent implements OnInit {
-  errorText: string | null = null;
+  public errorText: string | null = null;
 
   constructor(@Optional()
               @Self()
               @Inject(NgControl)
-              private ngControl: NgControl | null,
-              @Inject(ChangeDetectorRef) private changeDetectorRef: ChangeDetectorRef,) {
+              private ngControl: NgControl | null) {
     if (this.ngControl !== null) {
       this.ngControl.valueAccessor = this;
     }
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     if (this.control) {
       this.updateErrorText();
 
@@ -35,32 +32,28 @@ export class FieldErrorComponent implements OnInit {
     }
   }
 
-  get invalid(): boolean {
-    return this.ngControl === null || this.ngControl.invalid === null ? false : this.ngControl.invalid;
+  public get invalid(): boolean {
+    return this.ngControl && this.ngControl.invalid ? this.ngControl.invalid : false;
   }
 
-  get touched(): boolean {
-    return this.ngControl === null || this.ngControl.touched === null ? false : this.ngControl.touched;
+  public get touched(): boolean {
+    return this.ngControl && this.ngControl.touched ? this.ngControl.touched : false;
   }
 
-  get control(): AbstractControl | null {
-    return this.ngControl === null ? null : this.ngControl.control || null;
+  public get control(): AbstractControl | null {
+    return this.ngControl && this.ngControl.control || null;
   }
 
-  registerOnChange() {
-    this.markForCheck();
+  public registerOnChange() {
   }
 
-  registerOnTouched() {
-    this.markForCheck();
+  public registerOnTouched() {
   }
 
-  setDisabledState() {
-    this.markForCheck();
+  public setDisabledState() {
   }
 
-  writeValue() {
-    this.markForCheck();
+  public writeValue() {
   }
 
   private updateErrorText() {
@@ -85,9 +78,5 @@ export class FieldErrorComponent implements OnInit {
 
   private get controlErrors(): { [key: string]: any } {
     return (this.control && this.control.errors) || {};
-  }
-
-  private markForCheck() {
-    this.changeDetectorRef.markForCheck();
   }
 }

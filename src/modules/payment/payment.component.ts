@@ -7,12 +7,12 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentComponent {
-  fundsSpent = 0;
+  public fundsSpent: number = 0;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
-  setFundsSpent(value: number) {
+  public setFundsSpent(value: number) {
     this.fundsSpent = value;
     this.changeDetectorRef.markForCheck();
   }
