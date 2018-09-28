@@ -1,0 +1,7 @@
+<table-header [columnNames]="columnNames"></table-header>
+
+<ng-container *ngFor="let payment of payments">
+  <table-row [payment]="payment"
+             (onClickCheckbox)="clickToCheckbox($event, payment.price)"
+             (onDelete)="deletePayment($event, payment)"></table-row>
+</ng-container>

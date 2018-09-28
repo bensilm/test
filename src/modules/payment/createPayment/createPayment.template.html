@@ -1,0 +1,18 @@
+<form class="wrapper"
+      [formGroup]="form"
+      (ngSubmit)="submit()">
+  <div class="input-group">
+    <input type="text"
+           placeholder="Наименование платежа *"
+           formControlName="name">
+    <field-error formControlName="name"></field-error>
+  </div>
+  <div class="input-group">
+    <input type="number"
+           placeholder="Стоимость"
+           formControlName="price">
+    <field-error formControlName="price"></field-error>
+  </div>
+  <button class="button"
+          [disabled]="form.invalid">Добавить</button>
+</form>
