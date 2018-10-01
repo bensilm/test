@@ -6,4 +6,6 @@
          [formControl]="control"
          (click)="clickCheckbox(control.value)">
 </td>
-<td class="table-cell"><button (click)="deleteRow()">x</button></td>
+<td class="table-cell">
+  <div class="remove-button" (click)="deleteRow()"></div>
+</td>
