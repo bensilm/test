@@ -1,11 +1,10 @@
-<td class="table-cell">{{payment?.name}}</td>
-<td class="table-cell">{{payment?.price}}</td>
-<td *ngFor="let control of checkboxes?.controls"
-    class="table-cell">
+<td>{{payment?.name}}</td>
+<td>{{payment?.price}}</td>
+<td *ngFor="let control of checkboxes?.controls">
   <input type="checkbox"
          [formControl]="control"
          (click)="clickCheckbox(control.value)">
 </td>
-<td class="table-cell">
+<td>
   <div class="remove-button" (click)="deleteRow()"></div>
 </td>
